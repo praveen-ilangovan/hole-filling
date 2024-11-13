@@ -10,9 +10,10 @@ import os
 # Local imports
 from . import cli
 from .image_preprocessor import ImagePreProcessor
-from .hole_filler import HoleFiller
-from .models import Connectivity
-from .weighting import DefaultWeightMechanism
+
+from .hole_filing_lib.hole_filler import HoleFiller
+from .hole_filing_lib.models import Connectivity
+from .hole_filing_lib.weighting import DefaultWeightMechanism
 
 def main() -> None:
     """Main function"""

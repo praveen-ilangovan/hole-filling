@@ -7,9 +7,9 @@ import numpy as np
 import pytest
 
 # Package specific imports
-from hole_filling.hole_filler import HoleFiller
-from hole_filling.weighting import DefaultWeightMechanism
-from hole_filling.models import Pixel, Connectivity
+from hole_filling.hole_filing_lib.hole_filler import HoleFiller
+from hole_filling.hole_filing_lib.weighting import DefaultWeightMechanism
+from hole_filling.hole_filing_lib.models import Pixel, Connectivity
 
 @pytest.fixture(scope="session")
 def weighting():

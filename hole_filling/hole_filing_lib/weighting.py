@@ -10,7 +10,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 import math
 
-from hole_filling.models import Pixel
+from hole_filling.hole_filing_lib.models import Pixel
 
 if TYPE_CHECKING:
     from .models import Pixel

@@ -12,9 +12,11 @@ import tempfile
 from datetime import datetime
 import os
 
+# Project specific imports
+import cv2
+
 # Local imports
 from .models import Pixel, Connectivity
-from . import cv2_utils
 
 if TYPE_CHECKING:
     import numpy as np
@@ -134,7 +136,7 @@ class HoleFiller:
 
         filename = f"Filled_c{self.__connectivity.value}_{datetime.now().strftime("%m%d%y_%H%M%S")}.png"
         filepath = os.path.join(self.__output_directory, filename)
-        cv2_utils.save_image(img, filepath)
+        cv2.imwrite(filepath, img)
 
         print(f"Filled output image written to: {filepath}")
 

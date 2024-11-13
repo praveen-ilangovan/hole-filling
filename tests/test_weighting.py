@@ -6,8 +6,8 @@
 import pytest
 
 # Package specific imports
-from hole_filling.weighting import DefaultWeightMechanism
-from hole_filling.models import Pixel
+from hole_filling.hole_filing_lib.weighting import DefaultWeightMechanism
+from hole_filling.hole_filing_lib.models import Pixel
 
 def test_default_weighting():
     dwm = DefaultWeightMechanism(2, 0.1)

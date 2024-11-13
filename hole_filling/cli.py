@@ -23,9 +23,10 @@ options:
 # Builtin imports
 import argparse
 
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
 # Functions
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
+
 
 def get_cli_parser() -> argparse.ArgumentParser:
     """
@@ -37,20 +38,33 @@ def get_cli_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser("HoleFilling")
 
     # Positional arguments
-    parser.add_argument('image_path', help='Location of an image file')
-    parser.add_argument('mask_path',
-        help='Location of the mask file to be applied to the image file.')
-    parser.add_argument('z', type=int,
-        help="The z value for the default weighting mechanism.")
-    parser.add_argument('e', type=float,
-        help="The e value for the default weighting mechanism.")
-    parser.add_argument('connectivity', type=int,
-        help="Specify the pixel connectivity. Supported values: 4,8")
-    
+    parser.add_argument("image_path", help="Location of an image file")
+    parser.add_argument(
+        "mask_path", help="Location of the mask file to be applied to the image file."
+    )
+    parser.add_argument(
+        "z", type=int, help="The z value for the default weighting mechanism."
+    )
+    parser.add_argument(
+        "e", type=float, help="The e value for the default weighting mechanism."
+    )
+    parser.add_argument(
+        "connectivity",
+        type=int,
+        help="Specify the pixel connectivity. Supported values: 4,8",
+    )
+
     # Optional arguments
-    parser.add_argument("-o", "--output_directory",
-        help="If provided, the output image will be written to this location")
-    parser.add_argument("-d", "--debug", action='store_true',
-        help="If set, the boundary is drawn in black in the output image. Defaults to False")
-    
+    parser.add_argument(
+        "-o",
+        "--output_directory",
+        help="If provided, the output image will be written to this location",
+    )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_true",
+        help="If set, the boundary is drawn in black in the output image. Defaults to False",
+    )
+
     return parser

@@ -15,9 +15,10 @@ from hole_filling.hole_filing_lib.models import Pixel
 if TYPE_CHECKING:
     from .models import Pixel
 
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
 # Classes
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
+
 
 class AbstractWeightingMechanism(ABC):
     """
@@ -37,10 +38,12 @@ class AbstractWeightingMechanism(ABC):
             Computed weight in float
         """
 
+
 class DefaultWeightMechanism(AbstractWeightingMechanism):
     """
     Computes the weight between hole and boundary using euclidean distance
     """
+
     def __init__(self, param_z: int, param_e: float):
         super().__init__()
         self.__param_z = param_z
@@ -59,4 +62,4 @@ class DefaultWeightMechanism(AbstractWeightingMechanism):
         """
         dist = math.dist((hole.row, hole.column), (boundary.row, boundary.column))
         denominator = math.pow(dist, self.__param_z) + self.__param_e
-        return 1/denominator
+        return 1 / denominator

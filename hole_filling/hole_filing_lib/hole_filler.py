@@ -2,7 +2,7 @@
 module: hole_filler
 
 For the given grayscale image where the pixel values are in the range of [0..1]
-and the hole pixels are set to -1, the class finds the boundary around the hole 
+and the hole pixels are set to -1, the class finds the boundary around the hole
 and fills the hole using an algorithm.
 """
 
@@ -22,16 +22,17 @@ if TYPE_CHECKING:
     import numpy as np
     from .weighting import AbstractWeightingMechanism
 
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
 # Class
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
+
 
 class HoleFiller:
     """
     Class that finds the hole and its boundary and fills it using an algorithm.
 
     Args:
-        image (np.ndarray): A 2D array in tha range of [0..1]. The hole is 
+        image (np.ndarray): A 2D array in tha range of [0..1]. The hole is
             represemted with a value of -1
         weighting (AbstractWeightingMechanism): An instance of WeightingMechanism
             implemented using the AbstractWeigbhtingMechanism class.
@@ -41,35 +42,39 @@ class HoleFiller:
         debug (bool): If set to true, the boundary pixels are set to black while
             writing to disk. Default to False
     """
-    def __init__(self, image: 'np.ndarray',
-                 weighting: 'AbstractWeightingMechanism',
-                 connectivity: Connectivity = Connectivity.FOUR,
-                 output_directory: Optional[str] = None,
-                 debug: bool = False):
+
+    def __init__(
+        self,
+        image: "np.ndarray",
+        weighting: "AbstractWeightingMechanism",
+        connectivity: Connectivity = Connectivity.FOUR,
+        output_directory: Optional[str] = None,
+        debug: bool = False,
+    ):
         self.__image = image
         self.__weighting = weighting
         self.__connectivity = connectivity
         self.__output_directory = output_directory
         self.__debug = debug
-        
+
         # Get the resolution of the image
         self.__rows = self.__image.shape[0]
         self.__columns = self.__image.shape[1]
 
         # Holes and Boundaries
-        self.__holes = set()
-        self.__boundaries = set()
+        self.__holes: set[Pixel] = set()
+        self.__boundaries: set[Pixel] = set()
 
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     # Properties
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     @property
     def holes(self) -> set[Pixel]:
         """
         Return the pixels that are holes
         """
         return self.__holes
-    
+
     @property
     def boundaries(self) -> set[Pixel]:
         """
@@ -77,9 +82,9 @@ class HoleFiller:
         """
         return self.__boundaries
 
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     # Methods
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     def fill(self) -> None:
         """
         Fill the hole
@@ -94,7 +99,7 @@ class HoleFiller:
 
     def find_holes_and_boundaries(self) -> None:
         """
-        Find the pixels that are holes (whose value is set to -1) and their 
+        Find the pixels that are holes (whose value is set to -1) and their
         boundary pixels.
         """
         for row_index, row in enumerate(self.__image):
@@ -112,14 +117,14 @@ class HoleFiller:
         """
         Calculcate the color for the hole
         """
-        numerator = 0
-        denominator = 0
+        numerator = 0.0
+        denominator = 0.0
         for boundary in self.boundaries:
             weight = self.__weighting.get_weight(hole, boundary)
             numerator += weight * boundary.value
             denominator += weight
 
-        return numerator/denominator
+        return numerator / denominator
 
     def save(self) -> None:
         """
@@ -129,7 +134,7 @@ class HoleFiller:
             for boundary in self.boundaries:
                 self.__image[boundary.row][boundary.column] = 0
 
-        img = self.__image*255
+        img = self.__image * 255
 
         if not self.__output_directory:
             self.__output_directory = tempfile.TemporaryDirectory().name
@@ -140,9 +145,9 @@ class HoleFiller:
 
         print(f"Filled output image written to: {filepath}")
 
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     # Methods: Privates
-    #-------------------------------------------------------------------------#
+    # -------------------------------------------------------------------------#
     def __get_connected_pixels(self, pixel: Pixel) -> list[Pixel]:
         """
         For a given pixel, based on the connectivity value, return a list of
@@ -153,16 +158,22 @@ class HoleFiller:
         """
         connected_pixels = []
 
-        indices_to_check = [(pixel.row, pixel.column - 1),
-                            (pixel.row, pixel.column + 1),
-                            (pixel.row - 1, pixel.column),
-                            (pixel.row + 1, pixel.column)]
+        indices_to_check = [
+            (pixel.row, pixel.column - 1),
+            (pixel.row, pixel.column + 1),
+            (pixel.row - 1, pixel.column),
+            (pixel.row + 1, pixel.column),
+        ]
 
         if self.__connectivity == Connectivity.EIGHT:
-            indices_to_check.extend( [(pixel.row - 1, pixel.column - 1),
-                                      (pixel.row - 1, pixel.column + 1),
-                                      (pixel.row + 1, pixel.column - 1),
-                                      (pixel.row + 1, pixel.column + 1)] )
+            indices_to_check.extend(
+                [
+                    (pixel.row - 1, pixel.column - 1),
+                    (pixel.row - 1, pixel.column + 1),
+                    (pixel.row + 1, pixel.column - 1),
+                    (pixel.row + 1, pixel.column + 1),
+                ]
+            )
 
         for row, col in indices_to_check:
             # Within the image range

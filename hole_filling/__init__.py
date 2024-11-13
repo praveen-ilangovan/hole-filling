@@ -1,3 +1,3 @@
 """
-module: hole_filling
+package: hole_filling
 """

@@ -8,25 +8,28 @@ Defines the dataclass and enums used in this module
 from enum import Enum
 from dataclasses import dataclass
 
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
 # Class
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
+
 
 @dataclass(frozen=True)
 class Pixel:
     """
-    Dataclass that represents a pixel in the image. It stores three values. 
+    Dataclass that represents a pixel in the image. It stores three values.
     col, row is the coordinate and value is the color value
     """
+
     row: int
     column: int
     value: float
 
+
 class Connectivity(Enum):
     """
-    An enum to specify the pixel connectivity. 
+    An enum to specify the pixel connectivity.
 
-    While finding the boundaries around the hole, HoleFiller uses this 
+    While finding the boundaries around the hole, HoleFiller uses this
     connectivity value to find the pixels connected to the hole pixel.
 
     Example:
@@ -49,5 +52,6 @@ class Connectivity(Enum):
         1   X   X   X   1
         1   1   1   1   1
     """
+
     FOUR = 4
     EIGHT = 8

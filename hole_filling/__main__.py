@@ -15,6 +15,7 @@ from .hole_filing_lib.hole_filler import HoleFiller
 from .hole_filing_lib.models import Connectivity
 from .hole_filing_lib.weighting import DefaultWeightMechanism
 
+
 def main() -> None:
     """Main function"""
     parser = cli.get_cli_parser()
@@ -28,7 +29,7 @@ def main() -> None:
     else:
         print("Error: Invalid pixel connectivity. Supports 4 and 8")
         return None
-    
+
     # Preprocess the image and mask
     preprocessor = ImagePreProcessor.from_images(args.image_path, args.mask_path)
     processed_img = preprocessor.run()
@@ -41,12 +42,15 @@ def main() -> None:
     if not output_directory:
         output_directory = os.path.dirname(args.image_path)
 
-    filler = HoleFiller(processed_img,
-                        weighting=weighting,
-                        connectivity=connectivity,
-                        output_directory=output_directory,
-                        debug=args.debug)
+    filler = HoleFiller(
+        processed_img,
+        weighting=weighting,
+        connectivity=connectivity,
+        output_directory=output_directory,
+        debug=args.debug,
+    )
     filler.fill()
+
 
 if __name__ == "__main__":
     main()

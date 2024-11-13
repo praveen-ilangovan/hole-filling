@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hole-filling"
+version = "0.1.0"
+description = ""
+authors = ["Praveen Ilangovan <praveen.ilangovan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+opencv-python = "^4.10.0.84"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

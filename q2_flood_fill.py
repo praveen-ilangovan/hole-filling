@@ -5,15 +5,17 @@ A simple flood fill algorithm iterates through each pixel and, when a hole is
 detected, calculates the mean value of its neighboring non-hole pixels and
 assigns this mean as the new value for the hole.
 
-usage: flood_fill [-h] image_path mask_path connectivity
+Usage:
+flood_fill [-h] [-c {4,8}] image_path mask_path
 
 positional arguments:
-  image_path    Location of an image file
-  mask_path     Location of the mask file to be applied to the image file.
-  connectivity  Specify the pixel connectivity. Supported values: 4,8
+  image_path            Location of an image file
+  mask_path             Location of the mask file to be applied to the image file.
 
 options:
-  -h, --help    show this help message and exit
+  -h, --help            show this help message and exit
+  -c {4,8}, --connectivity {4,8}
+                        Specify the pixel connectivity. Defaults to 4
 """
 
 # Builtin imports
@@ -111,10 +113,15 @@ def get_cli_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "mask_path", help="Location of the mask file to be applied to the image file."
     )
+
+    # Optional argument
     parser.add_argument(
-        "connectivity",
+        "-c",
+        "--connectivity",
         type=int,
-        help="Specify the pixel connectivity. Supported values: 4,8",
+        choices=[4, 8],
+        default=4,
+        help="Specify the pixel connectivity. Defaults to 4",
     )
 
     return parser
@@ -125,21 +132,16 @@ def main() -> None:
     parser = get_cli_parser()
     args = parser.parse_args()
 
-    connectivity = args.connectivity
-    if connectivity not in (4, 8):
-        print("WARNING: Invalid connectivity value. Using a value 4.")
-        connectivity = 4
-
     # Preprocess the image and mask
     preprocessor = ImagePreProcessor.from_images(args.image_path, args.mask_path)
     processed_img = preprocessor.run()
 
     # Fill it
-    filled_img = flood_fill(processed_img, connectivity)
+    filled_img = flood_fill(processed_img, args.connectivity)
 
     # Save it
     output_directory = os.path.dirname(args.image_path)
-    filename = f"Filled_floodFill_c{connectivity}_{datetime.now().strftime("%m%d%y_%H%M%S")}.png"
+    filename = f"Filled_floodFill_c{args.connectivity}_{datetime.now().strftime("%m%d%y_%H%M%S")}.png"
     filepath = os.path.join(output_directory, filename)
     save_image(filled_img, filepath)
 

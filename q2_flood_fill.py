@@ -5,7 +5,8 @@ A simple flood fill algorithm iterates through each pixel and, when a hole is
 detected, calculates the mean value of its neighboring non-hole pixels and
 assigns this mean as the new value for the hole.
 
-Usage:
+Usage: python q2_flood_fill.py <image_path> <mask_path>
+
 flood_fill [-h] [-c {4,8}] image_path mask_path
 
 positional arguments:

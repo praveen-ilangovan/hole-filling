@@ -1,5 +1,6 @@
 FROM python:3.12.5-slim
 
+# Install OpenCV dependencies
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 ENV POETRY_NO_INTERACTION=1 \

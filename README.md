@@ -3,6 +3,28 @@
 An image processor built using Python and OpenCV that fills holes in images, along
 with a simple command line utility.
 
+**Hole Filling Algorithm**:
+
+Definitions:
+
+ - 𝐼: the input image.
+ - 𝐼(𝑣): color of the pixel at coordinate 𝑣 ∈ ℤ .
+ - 𝐵: set of all the boundary pixel coordinates. A boundary pixel is defined as a pixel that is
+connected to a hole pixel, but is not in the hole itself. Pixels can be either 4- or
+8-connected to the hole based on input. See this for more info.
+ - 𝐻: set of all the hole (missing) pixel coordinates. You can assume the hole pixels are
+8-connected with each other.
+ - 𝑤(𝑣, 𝑢) : weighting function which assigns a non-negative float weight to a pair of two
+pixel coordinates in the image.
+
+Algorithm:
+
+[![\\ I(u) = \frac{\sum_{v\in B} w(u,v) . I(v)}{\sum_{v\in B} w(u,v)}](https://latex.codecogs.com/svg.latex?%5C%5C%20I(u)%20%3D%20%5Cfrac%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%20.%20I(v)%7D%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%7D)](#_)
+
+where
+
+[![\\ w_{z,\epsilon}(u,v) = \frac{1}{\lVert u-v \rVert ^z + \epsilon}](https://latex.codecogs.com/svg.latex?%5C%5C%20w_%7Bz%2C%5Cepsilon%7D(u%2Cv)%20%3D%20%5Cfrac%7B1%7D%7B%5ClVert%20u-v%20%5CrVert%20%5Ez%20%2B%20%5Cepsilon%7D)](#_)
+
 ## Running locally
 
 ### Requirements

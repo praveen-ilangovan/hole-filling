@@ -19,11 +19,11 @@ pixel coordinates in the image.
 
 Algorithm:
 
-[![\\ I(u) = \frac{\sum_{v\in B} w(u,v) . I(v)}{\sum_{v\in B} w(u,v)}](https://latex.codecogs.com/svg.latex?%5C%5C%20I(u)%20%3D%20%5Cfrac%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%20.%20I(v)%7D%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%7D)](#_)
+[![\\ \color{green}I(u) = \frac{\sum_{v\in B} w(u,v) . I(v)}{\sum_{v\in B} w(u,v)}](https://latex.codecogs.com/svg.latex?%5C%5C%20%5Ccolor%7Bgreen%7DI(u)%20%3D%20%5Cfrac%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%20.%20I(v)%7D%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%7D)](#_)
 
 where
 
-[![\\ w_{z,\epsilon}(u,v) = \frac{1}{\lVert u-v \rVert ^z + \epsilon}](https://latex.codecogs.com/svg.latex?%5C%5C%20w_%7Bz%2C%5Cepsilon%7D(u%2Cv)%20%3D%20%5Cfrac%7B1%7D%7B%5ClVert%20u-v%20%5CrVert%20%5Ez%20%2B%20%5Cepsilon%7D)](#_)
+[![\\ \color{green}w_{z,\epsilon}(u,v) = \frac{1}{\lVert u-v \rVert ^z + \epsilon}](https://latex.codecogs.com/svg.latex?%5C%5C%20%5Ccolor%7Bgreen%7Dw_%7Bz%2C%5Cepsilon%7D(u%2Cv)%20%3D%20%5Cfrac%7B1%7D%7B%5ClVert%20u-v%20%5CrVert%20%5Ez%20%2B%20%5Cepsilon%7D)](#_)
 
 ## Running locally
 

@@ -36,6 +36,7 @@ where
 ```sh
 cd hole-filling
 poetry install
+poetry shell
 ```
 
 ### Usage

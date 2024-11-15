@@ -48,6 +48,8 @@ root@c4df36a09865:/app# python -m hole_filling ./resources/Lenna.png ./resources
 
 ## Additional Implementations
 
+These implementations can be tested locally and within the docker container.
+
 ### Flood Fill
 
 A simple flood fill algorithm:

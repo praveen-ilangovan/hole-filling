@@ -20,9 +20,13 @@ RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 COPY hole_filling ./hole_filling
 RUN poetry install --without dev
 
+# Copy the q2 and q3 answers
+COPY q2_flood_fill.py ./
+COPY q3_fmm.py ./
+
 # Add venv/bin to path, so python could be loaded from there
 ENV VIRTUAL_ENV=./.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# ENTRYPOINT ["poetry", "run", "python", "-m", "hole_filling"]
+# Start the bash shell
 ENTRYPOINT [ "/bin/bash" ]

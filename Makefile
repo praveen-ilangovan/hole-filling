@@ -29,7 +29,7 @@ test: ## Test the code with pytest
 ##### DOCKER #####
 .PHONY: dbuild
 dbuild: ## Build a docker container
-	@docker build -t praveen/hole_filling .
+	@docker build -t praveen/hole-filling .
 
 ##################
 #####  HELP  #####

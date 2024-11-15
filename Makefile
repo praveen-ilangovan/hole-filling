@@ -18,10 +18,18 @@ check: ## Run code quality tools.
 	@echo "🚀 Static type checking: Running mypy"
 	@poetry run mypy hole_filling/
 
+##################
+###### TEST ######
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"
 	@poetry run pytest
+
+##################
+##### DOCKER #####
+.PHONY: dbuild
+dbuild: ## Build a docker container
+	@docker build -t praveen/hole_filling .
 
 ##################
 #####  HELP  #####

@@ -35,7 +35,7 @@ def get_cli_parser() -> argparse.ArgumentParser:
     Returns:
         argparse.ArgumentParser
     """
-    parser = argparse.ArgumentParser("HoleFilling")
+    parser = argparse.ArgumentParser("python -m hole_filling")
 
     # Positional arguments
     parser.add_argument("image_path", help="Location of an image file")

@@ -15,6 +15,7 @@ Process:
 
 # Builtin imports
 from typing import TYPE_CHECKING
+import os
 
 # Project specific imports
 import cv2
@@ -40,7 +41,13 @@ def convert_to_grayscale(path: str) -> "np.ndarray":
 
     Returns:
         A numpy array in the range of [0..1]
+
+    Raises:
+        HoleFillingException
     """
+    if not os.path.exists(path):
+        raise HoleFillingException(f"FileNotFound: {path}")
+
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
     return img / 255.0
 

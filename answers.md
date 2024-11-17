@@ -1,81 +1,31 @@
-# Hole-Filling
+# Submission info
 
-An image processor built using Python and OpenCV that fills holes in images, along
-with a simple command line utility.
-
-**Hole Filling Algorithm**:
-
-Definitions:
-
- - 𝐼: the input image.
- - 𝐼(𝑣): color of the pixel at coordinate 𝑣 ∈ ℤ .
- - 𝐵: set of all the boundary pixel coordinates. A boundary pixel is defined as a pixel that is
-connected to a hole pixel, but is not in the hole itself. Pixels can be either 4- or
-8-connected to the hole based on input. See this for more info.
- - 𝐻: set of all the hole (missing) pixel coordinates. You can assume the hole pixels are
-8-connected with each other.
- - 𝑤(𝑣, 𝑢) : weighting function which assigns a non-negative float weight to a pair of two
-pixel coordinates in the image.
-
-Algorithm:
-
-[![\\ \color{green}I(u) = \frac{\sum_{v\in B} w(u,v) . I(v)}{\sum_{v\in B} w(u,v)}](https://latex.codecogs.com/svg.latex?%5C%5C%20%5Ccolor%7Bgreen%7DI(u)%20%3D%20%5Cfrac%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%20.%20I(v)%7D%7B%5Csum_%7Bv%5Cin%20B%7D%20w(u%2Cv)%7D)](#_)
-
-where
-
-[![\\ \color{green}w_{z,\epsilon}(u,v) = \frac{1}{\lVert u-v \rVert ^z + \epsilon}](https://latex.codecogs.com/svg.latex?%5C%5C%20%5Ccolor%7Bgreen%7Dw_%7Bz%2C%5Cepsilon%7D(u%2Cv)%20%3D%20%5Cfrac%7B1%7D%7B%5ClVert%20u-v%20%5CrVert%20%5Ez%20%2B%20%5Cepsilon%7D)](#_)
-
-## Submission info
-
-[Please check out answers.md](answers.md)
-
-## Running locally
-
-### Requirements
- - [Python - v3.12](https://www.python.org/)
- - [Poetry - v1.8.3](https://python-poetry.org/)
-
-### Installation
+### The result of applying the exercise on the attached image (Lenna.png) and mask (Mask.png) with 8-connectivity and the default weighting function using 𝑧 = 3 and ϵ = 0. 01. The mask represents hole pixels as any pixel with an intensity value of less than 0.5.
 
 ```sh
-cd hole-filling
-poetry install
-poetry shell
+Result: resources/Filled_c8_111524_112702.png
 ```
 
-### Usage
-
-![Usage](resources/usage.png)
-
-### Example
-
-```sh
-python -m hole_filling resources/Lenna.png resources/Mask.png 3 0.01 8
-```
-
-![Source](resources/Lenna.png)
-![Mask](resources/Mask.png)
 ![Result](resources/Filled_c8_111524_112702.png)
 
-## Running in docker
+# Answers to questions
 
-```sh
-cd hole-filling
-docker build -t hole-filling .
-docker run --rm -it -v HOST/PATH:/app/resources:rw hole-filling
-```
+### Q1: If there are 𝑚 boundary pixels and 𝑛 pixels inside the hole, what’s the complexity of the algorithm that fills the hole, assuming that the hole and boundary were already found? Try to also express the complexity only in terms of 𝑛.
 
-In the bash shell.. 
+The overall time complexity is O(n * m).
 
-```bash
-root@c4df36a09865:/app# ls
-README.md  hole_filling  poetry.lock  pyproject.toml  q2_flood_fill.py  q3_fmm.py  resources
-root@c4df36a09865:/app# python -m hole_filling ./resources/Lenna.png ./resources/Mask.png 3 0.01 8
-```
+**Expressing Complexity in Terms of n Only:**
 
-## Additional Implementations
+If we assume m (number of boundary pixels) is proportional to the size of the hole (e.g., it scales as √n or log(n) depending on the shape and size of the hole), we can approximate m in terms of n:
 
-These implementations can be tested locally and within the docker container.
+If the boundary is roughly proportional to the perimeter of a region (2D), m could scale as O(√n).
+Thus, the worst-case time complexity in terms of n would be:
+
+O(n * m) ≈ O(n * √n) (if m scales as O(√n)).
+
+---
+
+### Q2: Describe an algorithm that approximates the result in 𝑂(𝑛) to a high degree of accuracy.
 
 ### Flood Fill
 
@@ -98,6 +48,10 @@ python q2_flood_fill.py ./resources/Lenna.png ./resources/Mask.png --connectivit
 ```
 
 ![Flood Fill](resources/Filled_floodFill_c8_111524_120225.png)
+
+---
+
+### Q3: Describe and implement an algorithm that finds the exact solution in 𝑂(𝑛𝑙𝑜𝑔𝑛). 
 
 ### OpenCV - Fast Marching Method
 
@@ -142,30 +96,3 @@ python q3_fmm.py ./resources/Lenna.png ./resources/Mask.png
 ```
 
 ![FMM](resources/Filled_fmm_111524_120325.png)
-
-## Code Quality
-
-### Unittest
-
-Uses pytest for unit-testing
-
-```sh
-poetry run pytest
-```
-
-### Lint and Formatting
-
-Uses ruff
-
-```sh
-poetry run ruff check hole_filling/
-poetry run ruff format hole_filling/
-```
-
-### Static type checking
-
-Uses mypy
-
-```sh
-poetry run mypy hole_filling/
-```

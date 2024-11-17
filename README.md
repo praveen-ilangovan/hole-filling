@@ -27,7 +27,8 @@ where
 
 ## Submission info
 
-[Please check out answers.md](answers.md)
+ - [Please check out answers.md](answers.md)
+ - [Also please check out my TS implementation](https://github.com/praveen-ilangovan/hole-filling-ts)
 
 ## Running locally
 
